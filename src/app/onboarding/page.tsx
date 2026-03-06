@@ -50,8 +50,28 @@ export default function OnboardingPage() {
         if (currentQuestion < QUESTIONS.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
-            setIsFinished(true);
-            // In a real app, we would POST the normalized weights to the backend here
+            handleFinish(answers);
+        }
+    };
+
+    const handleFinish = async (finalAnswers: Record<string, number>) => {
+        setIsFinished(true);
+        const total = QUESTIONS.length;
+        const varkProfile = {
+            visual: finalAnswers.v / total,
+            auditory: finalAnswers.a / total,
+            reading: finalAnswers.r / total,
+            kinesthetic: finalAnswers.k / total,
+        };
+
+        try {
+            await fetch("/api/user/profile", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ varkProfile }),
+            });
+        } catch (error) {
+            console.error("Failed to save profile:", error);
         }
     };
 

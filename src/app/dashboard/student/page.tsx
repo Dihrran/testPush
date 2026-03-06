@@ -1,7 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Target, TrendingUp, Presentation, PlaySquare, Book, Grip, Shapes, Flame } from "lucide-react";
+import Link from "next/link";
+import { SiteNav } from "@/components/SiteNav";
 
 export default function StudentDashboard() {
     // Mock Data
@@ -21,8 +24,9 @@ export default function StudentDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col p-4 md:p-8 font-sans">
-            <div className="max-w-6xl mx-auto w-full space-y-8">
+        <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+            <SiteNav />
+            <div className="max-w-6xl mx-auto w-full space-y-8 p-4 md:p-8">
                 {/* Header & Gamification Bar */}
                 <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
@@ -69,6 +73,9 @@ export default function StudentDashboard() {
                                             <span>{recommendedQuest.progress}%</span>
                                         </div>
                                         <Progress value={recommendedQuest.progress} className="h-2 w-full" />
+                                        <Link href="/quests/linear-equations" className="w-full mt-2">
+                                            <Button className="w-full bg-primary hover:bg-primary/90 text-white">Resume Quest</Button>
+                                        </Link>
                                     </div>
                                 </div>
                             </CardContent>
